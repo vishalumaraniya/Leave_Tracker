@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>register</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <div>
+        <label for="">User</label>
+        <input type="text" id="user">
+        <label for="">Password</label>
+        <input type="password" id="password">
+        <button class="register">Register</button>
+        <button class="clear">clear</button>
+    </div>
+</body>
+<script>
+    $(document).ready(function(){
+        $(document).on('click','.register',function(){
+            let user = $('#user').val();
+            let password = $('#password').val();  
+            if(user && password){
+                localStorage.setItem(`userName`,user);
+                localStorage.setItem(`password`,password);
+                window.location.href = 'login.html';
+            }
+            else(
+                alert('enter Valid Usename and Password')
+            )
+        })
+        $(document).on('click','.clear',function(){
+            localStorage.clear();
+        });
+    })
+</script>
+</html>
