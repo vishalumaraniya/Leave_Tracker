@@ -21,13 +21,14 @@
         sessionStorage.clear();
         $(document).on('input','#user',function(){
             let userId = $('#user').val();
-            sessionStorage.setItem('userName',userId)
+            
         });
         $(document).on('input','#password',function(){
             let password = $('#password').val();
-            sessionStorage.setItem('password',password)
         });
         $(document).on('click','.log',function(){
+            sessionStorage.setItem('password',password)
+            sessionStorage.setItem('userName',userId)
             const logUserId = sessionStorage.getItem('userName')
             const logPassword = sessionStorage.getItem('password')
             const regUserId = localStorage.getItem(`userName`)
