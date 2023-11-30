@@ -13,11 +13,14 @@
         <label for="">Password</label>
         <input type="password" id="password">
         <button class="register">Register</button>
-        <button class="clear">clear</button>
+        <!-- <button class="clear">clear</button> -->
     </div>
 </body>
 <script>
     $(document).ready(function(){
+        if(localStorage.getItem(`userName`) && localStorage.getItem(`password`)){
+            window.location.href = 'login.html';
+        }
         $(document).on('click','.register',function(){
             let user = $('#user').val();
             let password = $('#password').val();  
@@ -30,9 +33,9 @@
                 alert('enter Valid Usename and Password')
             )
         })
-        $(document).on('click','.clear',function(){
-            localStorage.clear();
-        });
+        // $(document).on('click','.clear',function(){
+        //     localStorage.clear();
+        // });
     })
 </script>
 </html>
