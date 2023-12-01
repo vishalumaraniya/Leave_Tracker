@@ -137,9 +137,10 @@
         let password = sessionStorage.getItem('password')
         const regUserId = localStorage.getItem(`userName`)
         const regPassword = localStorage.getItem(`password`)
-        
-        if(userId == regUserId  && password == regPassword){
-                       $('h1').html(`welcome home ${userId}`); 
+        if(userId && regUserId && password && regPassword){
+            if(userId == regUserId  && password == regPassword){
+                           $('h1').html(`welcome home ${userId}`); 
+            }
         }
         else{
             window.location.href = 'login.html'
