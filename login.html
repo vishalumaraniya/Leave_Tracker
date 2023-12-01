@@ -3,49 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login</title>
+    <title>Home</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        main{
+            display: flex;
+            flex-direction: column;
+            row-gap: 1rem;
+        }
+        ul{
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+        }
+        button{
+            width: fit-content;
+        }
+        li > *{
+            cursor: pointer;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            row-gap: 1rem;
+        }
+        .field-wrapper{
+            display: flex;
+            gap: 1rem;
+        }
+        table{
+            max-width: 700px;
+        }
+        th, td{
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <label for="">User</label>
-        <input type="text" id="user">
-        <label for="">Password</label>
-        <input type="password" id="password">
-        <button class="log">login</button>
-        <!-- <button class="reg">Register</button> -->
-    </div>
+    <main>
+        <h1></h1>
+        <form action="">
+            <div class="field-wrapper">
+                <h4>Choose Leave-Type :</h4>
+                <ul class="datetype_selector">
+                    <li><input type="radio" name="leaveType" id="cl" data-name="CL"> <label for="cl">CL</label></li>
+                    <li><input type="radio" name="leaveType" id="el" data-name="EL"> <label for="el">EL</label></li>
+                    <li><input type="radio" name="leaveType" id="hcl" data-name="Half-CL"> <label for="hcl">Half-CL</label></li>
+                    <li><input type="radio" name="leaveType" id="hel" data-name="Half-EL"> <label for="hel">Half-EL</label></li>
+                    <li><input type="radio" name="leaveType" id="cof" data-name="COF"> <label for="cof">COF</label></li>
+                </ul>
+            </div>
+            <div class="field-wrapper">
+                <h4>Choose Date :</h4>
+                <div class="calender">
+                    <input class='date' type="date" name="" id="" min="2024-01-01" max="2024-12-31">
+                </div>   
+            </div>
+            <div class="field-wrapper">
+                <h4>Remarks :</h4>
+                <input  class="remarks" type="text">
+            </div>
+            <button type="button" class="addLeave">Add Leave</button>
+            <table class="data_table">
+                <thead>
+                    <th>S.No.</th>
+                    <th>Leave Date</th>
+                    <th>Leave Type</th>
+                    <th>Remarks</th>
+                </thead>
+                <tbody></tbody>
+            </table> 
+        </form>
+        <button class="logout">Logout</button>
+    </main>
 </body>
 <script>
     $(document).ready(function(){
-        let logUserId,logPassword,regUserId,regPassword;
-        sessionStorage.clear();
-        let userId, password
-        $(document).on('input','#user',function(){
-             userId = $('#user').val();
-            
-        });
-        $(document).on('input','#password',function(){
-             password = $('#password').val();
-            console.log(
-              password     
-            )
-        });
-        $(document).on('click','.log',function(){
-            sessionStorage.setItem('password',password)
-            sessionStorage.setItem('userName',userId)
-             logUserId = sessionStorage.getItem('userName')
-             logPassword = sessionStorage.getItem('password')
-             regUserId = localStorage.getItem(`userName`)
-             regPassword = localStorage.getItem(`password`)
-            if(logUserId === regUserId && logPassword === regPassword){
-                window.location.href = 'home.html'
-                console.log('logged in')
+        let leaveType, date, remarks,addCount;
+        if(localStorage.getItem('addCount')){
+            addCount = localStorage.getItem('addCount');
+        }
+        else{
+            addCount = 0;
+        }
+        $(document).on('click','.addLeave',function(){
+            $('.datetype_selector input').each(function(){
+                if($(this).is(':checked')){
+                    leaveType = $(this).attr('data-name');
+                }
+            })
+            date = $('.date').val();
+            console.log(leaveType)
+            remarks = $('.remarks').val();
+            if(leaveType !== undefined && date !== ''){
+                localStorage.setItem(`Leave Date${addCount}`, date)
+                localStorage.setItem(`Remarks${addCount}`, remarks)
+                localStorage.setItem(`Leave Type${addCount}`, leaveType)
+                addCount = parseInt(addCount) + 1;
+                localStorage.setItem('addCount',addCount);
+                console.log(leaveType, date)
+                $('.data_table tr:last').after(
+                    `<tr>
+                    <td>${addCount}</td>
+                    <td>${date}</td>
+                    <td>${leaveType}</td>
+                    <td>${remarks}</td>
+                    </tr>`);
+                    window.print();
             }
             else{
-                alert('invalid UserName or Password');
+                alert('Date and LeaveType are mendatory');
             }
-        })
+        });
+
+        for(i=0; i<addCount; ++i){
+            $('.data_table tr:last').after(
+                    `<tr>
+                    <td>${i + 1}</td>
+                    <td>${localStorage.getItem(`Leave Date${i}`)}</td>
+                    <td>${localStorage.getItem(`Leave Type${i}`)}</td>
+                    <td>${localStorage.getItem(`Remarks${i}`)}</td>
+                    </tr>`);
+        }
+    });
+    $(window).on('load',function(){
+        let userId = sessionStorage.getItem('userName')
+        let password = sessionStorage.getItem('password')
+        let regUserId = localStorage.getItem(`userName`)
+        let regPassword = localStorage.getItem(`password`)
+        if(userId && regUserId && password && regPassword){
+            if(userId == regUserId  && password == regPassword){
+                           $('h1').html(`welcome home ${userId}`); 
+            }
+        }
+        else{
+            window.location.href = 'login.html'
+        }
     })
+    $(document).on('click','.logout',function(){
+        sessionStorage.setItem('userName','')
+        sessionStorage.setItem('password','')
+        location.reload();
+    });
 </script>
 </html>
