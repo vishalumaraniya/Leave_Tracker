@@ -18,6 +18,7 @@
 </body>
 <script>
     $(document).ready(function(){
+        let logUserId,logPassword,regUserId,regPassword;
         sessionStorage.clear();
         let userId, password
         $(document).on('input','#user',function(){
@@ -32,13 +33,11 @@
         });
         $(document).on('click','.log',function(){
             sessionStorage.setItem('password',password)
-            console.log(password,'password')
-            console.log(userId,'username')
             sessionStorage.setItem('userName',userId)
-            const logUserId = sessionStorage.getItem('userName')
-            const logPassword = sessionStorage.getItem('password')
-            const regUserId = localStorage.getItem(`userName`)
-            const regPassword = localStorage.getItem(`password`)
+             logUserId = sessionStorage.getItem('userName')
+             logPassword = sessionStorage.getItem('password')
+             regUserId = localStorage.getItem(`userName`)
+             regPassword = localStorage.getItem(`password`)
             if(logUserId === regUserId && logPassword === regPassword){
                 window.location.href = 'home.html'
                 console.log('logged in')
@@ -47,9 +46,6 @@
                 alert('invalid UserName or Password');
             }
         })
-        // $(document).on('click','.reg',function(){
-        //     window.location.href='index.html';
-        // })
     })
 </script>
 </html>
