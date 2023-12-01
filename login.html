@@ -19,15 +19,21 @@
 <script>
     $(document).ready(function(){
         sessionStorage.clear();
+        let userId, password
         $(document).on('input','#user',function(){
-            let userId = $('#user').val();
+             userId = $('#user').val();
             
         });
         $(document).on('input','#password',function(){
-            let password = $('#password').val();
+             password = $('#password').val();
+            console.log(
+              password     
+            )
         });
         $(document).on('click','.log',function(){
             sessionStorage.setItem('password',password)
+            console.log(password,'password')
+            console.log(userId,'username')
             sessionStorage.setItem('userName',userId)
             const logUserId = sessionStorage.getItem('userName')
             const logPassword = sessionStorage.getItem('password')
