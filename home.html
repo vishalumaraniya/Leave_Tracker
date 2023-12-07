@@ -147,6 +147,8 @@
             $('#rcl').html(cl);
             $('#rel').html(el);
             $('#rcoff').html(coff);
+            total = parseFloat(cl) + parseFloat(el) + parseFloat(coff);
+            $('#total').html(total)
         }
         if (localStorage.getItem('addCount')) {
             addCount = localStorage.getItem('addCount');
