@@ -53,6 +53,39 @@
             border: 1px solid black;
             border-collapse: collapse;
         }
+
+        body {
+
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: rgba(101, 117, 30, 0.623);
+        }
+
+
+        form {
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            position: relative;
+            z-index: 1;
+            max-height: 50vh;
+            overflow: auto;
+        }
+
+        .sticky-content {
+            position: sticky;
+            top: 1rem;
+            display: flex;
+            flex-direction: column;
+            row-gap: 0.75rem;
+        }
     </style>
 </head>
 
@@ -60,56 +93,59 @@
     <main>
         <h1></h1>
         <form action="">
-            <div class="field-wrapper">
-                <h4>Choose Leave-Type :</h4>
-                <ul class="datetype_selector">
-                    <li><input type="radio" name="leaveType" id="cl" data-name="CL"> <label for="cl">CL</label></li>
-                    <li><input type="radio" name="leaveType" id="el" data-name="EL"> <label for="el">EL</label></li>
-                    <li><input type="radio" name="leaveType" id="hcl" data-name="Half-CL"> <label
-                            for="hcl">Half-CL</label></li>
-                    <li><input type="radio" name="leaveType" id="hel" data-name="Half-EL"> <label
-                            for="hel">Half-EL</label></li>
-                    <li><input type="radio" name="leaveType" id="coff" data-name="COFF"> <label for="coff">COFF</label>
-                    </li>
-                </ul>
-            </div>
-            <div class="field-wrapper">
-                <h4>Choose Date :</h4>
-                <div class="calender">
-                    <input class='date' type="date" name="" id="" min="2024-01-01" max="2024-12-31">
+            <div class="sticky-content">
+                <div class="field-wrapper">
+                    <h4>Choose Leave-Type :</h4>
+                    <ul class="datetype_selector">
+                        <li><input type="radio" name="leaveType" id="cl" data-name="CL"> <label for="cl">CL</label></li>
+                        <li><input type="radio" name="leaveType" id="el" data-name="EL"> <label for="el">EL</label></li>
+                        <li><input type="radio" name="leaveType" id="hcl" data-name="Half-CL"> <label
+                                for="hcl">Half-CL</label></li>
+                        <li><input type="radio" name="leaveType" id="hel" data-name="Half-EL"> <label
+                                for="hel">Half-EL</label></li>
+                        <li><input type="radio" name="leaveType" id="coff" data-name="COFF"> <label
+                                for="coff">COFF</label>
+                        </li>
+                    </ul>
                 </div>
+                <div class="field-wrapper">
+                    <h4>Choose Date :</h4>
+                    <div class="calender">
+                        <input class='date' type="date" name="" id="" min="2024-01-01" max="2024-12-31">
+                    </div>
+                </div>
+                <div class="field-wrapper">
+                    <h4>Remarks :</h4>
+                    <input class="remarks" type="text">
+                </div>
+                <button type="button" class="addLeave">Add Leave</button>
+                <table class="remaining_leave">
+                    <thead>
+                        <th>Leave Type</th>
+                        <th>Remaining Leave</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CL</td>
+                            <td id="rcl"></td>
+                        </tr>
+                        <tr>
+                            <td>EL</td>
+                            <td id="rel"></td>
+                        </tr>
+                        <tr>
+                            <td>C-OFF</td>
+                            <td id="rcoff"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Total</b>
+                            </td>
+                            <td id="total"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="field-wrapper">
-                <h4>Remarks :</h4>
-                <input class="remarks" type="text">
-            </div>
-            <button type="button" class="addLeave">Add Leave</button>
-            <table class="remaining_leave">
-                <thead>
-                    <th>Leave Type</th>
-                    <th>Remaining Leave</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>CL</td>
-                        <td id="rcl"></td>
-                    </tr>
-                    <tr>
-                        <td>EL</td>
-                        <td id="rel"></td>
-                    </tr>
-                    <tr>
-                        <td>C-OFF</td>
-                        <td id="rcoff"></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>Total</b>
-                        </td>
-                        <td id="total"></td>
-                    </tr>
-                </tbody>
-            </table>
             <table class="data_table">
                 <thead>
                     <th>S.No.</th>
@@ -165,18 +201,7 @@
             date = $('.date').val();
             remarks = $('.remarks').val();
             if (leaveType !== undefined && date !== '') {
-                localStorage.setItem(`Leave Date${addCount}`, date)
-                localStorage.setItem(`Remarks${addCount}`, remarks)
-                localStorage.setItem(`Leave Type${addCount}`, leaveType)
-                addCount = parseInt(addCount) + 1;
-                localStorage.setItem('addCount', addCount);
-                $('.data_table tr:last').after(
-                    `<tr>
-                    <td>${addCount}</td>
-                    <td>${date}</td>
-                    <td>${leaveType}</td>
-                    <td>${remarks}</td>
-                    </tr>`);
+
                 if (leaveType === 'CL' || leaveType === 'Half-CL') {
                     if (cl > 0) {
                         if (leaveType === 'CL') {
@@ -187,6 +212,18 @@
                         }
                         $('#rcl').html(cl)
                         localStorage.setItem('cl', cl);
+                        localStorage.setItem(`Leave Date${addCount}`, date)
+                        localStorage.setItem(`Remarks${addCount}`, remarks)
+                        localStorage.setItem(`Leave Type${addCount}`, leaveType)
+                        addCount = parseInt(addCount) + 1;
+                        localStorage.setItem('addCount', addCount);
+                        $('.data_table tr:last').after(
+                            `<tr>
+                    <td>${addCount}</td>
+                    <td>${date}</td>
+                    <td>${leaveType}</td>
+                    <td>${remarks}</td>
+                    </tr>`);
                     }
                     else {
                         alert('You are running out of CL, Please choose another Leave Type');
@@ -202,7 +239,19 @@
                             el = el - 0.5;
                         }
                         localStorage.setItem('el', el);
+                        localStorage.setItem(`Leave Date${addCount}`, date)
+                        localStorage.setItem(`Remarks${addCount}`, remarks)
+                        localStorage.setItem(`Leave Type${addCount}`, leaveType)
+                        addCount = parseInt(addCount) + 1;
+                        localStorage.setItem('addCount', addCount);
                         $('#rel').html(el)
+                        $('.data_table tr:last').after(
+                            `<tr>
+                    <td>${addCount}</td>
+                    <td>${date}</td>
+                    <td>${leaveType}</td>
+                    <td>${remarks}</td>
+                    </tr>`);
                     } else {
                         alert('You are running out of EL, Please choose another Leave Type');
                     }
@@ -211,7 +260,19 @@
                     if (coff > 0) {
                         coff = coff - 1;
                         localStorage.setItem('coff', coff);
-                        $('#rcoff').html(coff)
+                        localStorage.setItem(`Leave Date${addCount}`, date)
+                        localStorage.setItem(`Remarks${addCount}`, remarks)
+                        localStorage.setItem(`Leave Type${addCount}`, leaveType)
+                        addCount = parseInt(addCount) + 1;
+                        localStorage.setItem('addCount', addCount);
+                        $('#rcoff').html(coff);
+                        $('.data_table tr:last').after(
+                            `<tr>
+                    <td>${addCount}</td>
+                    <td>${date}</td>
+                    <td>${leaveType}</td>
+                    <td>${remarks}</td>
+                    </tr>`);
                     }
                     else {
                         alert('You are running out of C-OFF, Please choose another Leave Type');
