@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
+
 <body>
     <div>
         <label for="">User</label>
@@ -17,30 +19,36 @@
     </div>
 </body>
 <script>
-    $(document).ready(function(){
-        let logUserId,logPassword,regUserId,regPassword;
-        sessionStorage.clear();
-        let userId, password
-        $(document).on('input','#user',function(){
-             userId = $('#user').val();
-        });
-        $(document).on('input','#password',function(){
-             password = $('#password').val();
+    $(document).ready(function () {
+        if (localStorage.getItem('userName') && localStorage.getItem('password')) {
+            let logUserId, logPassword, regUserId, regPassword;
+            sessionStorage.clear();
+            let userId, password;
+            $(document).on('input', '#user', function () {
+                userId = $('#user').val();
+            });
+            $(document).on('input', '#password', function () {
+                password = $('#password').val();
 
-        });
-        $(document).on('click','.log',function(){
-            regUserId = localStorage.getItem(`userName`)
-            regPassword = localStorage.getItem(`password`)
-            if(userId === regUserId && password === regPassword){
-                sessionStorage.setItem('password',password)
-                sessionStorage.setItem('userName',userId)
-                window.location.href = 'home.html'
-                console.log('logged in')
-            }
-            else{
-                alert('invalid UserName or Password');
-            }
-        })
+            });
+            $(document).on('click', '.log', function () {
+                regUserId = localStorage.getItem(`userName`)
+                regPassword = localStorage.getItem(`password`)
+                if (userId === regUserId && password === regPassword) {
+                    sessionStorage.setItem('password', password)
+                    sessionStorage.setItem('userName', userId)
+                    window.location.href = 'home.html'
+                    console.log('logged in')
+                }
+                else {
+                    alert('invalid UserName or Password');
+                }
+            })
+        }
+        else {
+            window.location.href = 'index.html';
+        }
     })
 </script>
+
 </html>
