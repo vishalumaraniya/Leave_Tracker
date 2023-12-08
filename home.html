@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -52,6 +53,7 @@
         td {
             border: 1px solid black;
             border-collapse: collapse;
+            background-color: rgba(255, 255, 255, 0.541);
         }
 
         body {
@@ -78,14 +80,6 @@
             max-height: 50vh;
             overflow: auto;
         }
-
-        .sticky-content {
-            position: sticky;
-            top: 1rem;
-            display: flex;
-            flex-direction: column;
-            row-gap: 0.75rem;
-        }
     </style>
 </head>
 
@@ -93,59 +87,56 @@
     <main>
         <h1></h1>
         <form action="">
-            <div class="sticky-content">
-                <div class="field-wrapper">
-                    <h4>Choose Leave-Type :</h4>
-                    <ul class="datetype_selector">
-                        <li><input type="radio" name="leaveType" id="cl" data-name="CL"> <label for="cl">CL</label></li>
-                        <li><input type="radio" name="leaveType" id="el" data-name="EL"> <label for="el">EL</label></li>
-                        <li><input type="radio" name="leaveType" id="hcl" data-name="Half-CL"> <label
-                                for="hcl">Half-CL</label></li>
-                        <li><input type="radio" name="leaveType" id="hel" data-name="Half-EL"> <label
-                                for="hel">Half-EL</label></li>
-                        <li><input type="radio" name="leaveType" id="coff" data-name="COFF"> <label
-                                for="coff">COFF</label>
-                        </li>
-                    </ul>
-                </div>
-                <div class="field-wrapper">
-                    <h4>Choose Date :</h4>
-                    <div class="calender">
-                        <input class='date' type="date" name="" id="" min="2024-01-01" max="2024-12-31">
-                    </div>
-                </div>
-                <div class="field-wrapper">
-                    <h4>Remarks :</h4>
-                    <input class="remarks" type="text">
-                </div>
-                <button type="button" class="addLeave">Add Leave</button>
-                <table class="remaining_leave">
-                    <thead>
-                        <th>Leave Type</th>
-                        <th>Remaining Leave</th>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>CL</td>
-                            <td id="rcl"></td>
-                        </tr>
-                        <tr>
-                            <td>EL</td>
-                            <td id="rel"></td>
-                        </tr>
-                        <tr>
-                            <td>C-OFF</td>
-                            <td id="rcoff"></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <b>Total</b>
-                            </td>
-                            <td id="total"></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="field-wrapper">
+                <h4>Choose Leave-Type :</h4>
+                <ul class="datetype_selector">
+                    <li><input type="radio" name="leaveType" id="cl" data-name="CL"> <label for="cl">CL</label></li>
+                    <li><input type="radio" name="leaveType" id="el" data-name="EL"> <label for="el">EL</label></li>
+                    <li><input type="radio" name="leaveType" id="hcl" data-name="Half-CL"> <label
+                            for="hcl">Half-CL</label></li>
+                    <li><input type="radio" name="leaveType" id="hel" data-name="Half-EL"> <label
+                            for="hel">Half-EL</label></li>
+                    <li><input type="radio" name="leaveType" id="coff" data-name="COFF"> <label for="coff">COFF</label>
+                    </li>
+                </ul>
             </div>
+            <div class="field-wrapper">
+                <h4>Choose Date :</h4>
+                <div class="calender">
+                    <input class='date' type="date" name="" id="" min="2024-01-01" max="2024-12-31">
+                </div>
+            </div>
+            <div class="field-wrapper">
+                <h4>Remarks :</h4>
+                <input class="remarks" type="text">
+            </div>
+            <button type="button" class="addLeave">Add Leave</button>
+            <table class="remaining_leave">
+                <thead>
+                    <th>Leave Type</th>
+                    <th>Remaining Leave</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CL</td>
+                        <td id="rcl"></td>
+                    </tr>
+                    <tr>
+                        <td>EL</td>
+                        <td id="rel"></td>
+                    </tr>
+                    <tr>
+                        <td>C-OFF</td>
+                        <td id="rcoff"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Total</b>
+                        </td>
+                        <td id="total"></td>
+                    </tr>
+                </tbody>
+            </table>
             <table class="data_table">
                 <thead>
                     <th>S.No.</th>
@@ -157,6 +148,7 @@
             </table>
         </form>
         <button class="logout">Logout</button>
+        <button id="export-btn">Export to Excel</button>
     </main>
 </body>
 <script>
@@ -296,6 +288,28 @@
                     <td>${localStorage.getItem(`Remarks${i}`)}</td>
                     </tr>`);
         }
+
+
+        $('#export-btn').on('click', function () {
+            // Get data from the table
+            var data = [];
+            $('.data_table tr').each(function () {
+                var rowData = [];
+                $(this).find('td').each(function () {
+                    rowData.push($(this).text());
+                });
+                data.push(rowData);
+            });
+
+            // Create a workbook and add a worksheet
+            var wb = XLSX.utils.book_new();
+            var ws = XLSX.utils.aoa_to_sheet(data);
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+            // Save the workbook as an Excel file
+            XLSX.writeFile(wb, 'exported_data.xlsx');
+        });
+
     });
     $(window).on('load', function () {
         let userId = sessionStorage.getItem('userName')

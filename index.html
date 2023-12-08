@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>register</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
+
 <body>
     <div>
         <label for="">User</label>
@@ -17,19 +19,19 @@
     </div>
 </body>
 <script>
-    $(document).ready(function(){
-        if(localStorage.getItem(`userName`) && localStorage.getItem(`password`)){
+    $(document).ready(function () {
+        if (localStorage.getItem(`userName`) && localStorage.getItem(`password`)) {
             window.location.href = 'login.html';
         }
-        $(document).on('click','.register',function(){
+        $(document).on('click', '.register', function () {
             let user = $('#user').val();
-            let password = $('#password').val();  
-            if(user && password){
-                localStorage.setItem(`userName`,user);
-                localStorage.setItem(`password`,password);
+            let password = $('#password').val();
+            if (user && password) {
+                localStorage.setItem(`userName`, user);
+                localStorage.setItem(`password`, password);
                 window.location.href = 'login.html';
             }
-            else(
+            else (
                 alert('enter Valid Usename and Password')
             )
         })
@@ -38,4 +40,5 @@
         // });
     })
 </script>
+
 </html>
