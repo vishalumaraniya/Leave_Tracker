@@ -111,6 +111,7 @@
                 <input class="remarks" type="text">
             </div>
             <button type="button" class="addLeave">Add Leave</button>
+            <button type="button" class="addCoff">Add C-OFF</button>
             <table class="remaining_leave">
                 <thead>
                     <th>Leave Type</th>
@@ -138,12 +139,12 @@
                 </tbody>
             </table>
             <table class="data_table">
-                <thead>
-                    <th>S.No.</th>
-                    <th>Leave Date</th>
-                    <th>Leave Type</th>
-                    <th>Remarks</th>
-                </thead>
+                <tr>
+                    <td>S.No.</td>
+                    <td>Leave Date</td>
+                    <td>Leave Type</td>
+                    <td>Remarks</td>
+                </tr>
                 <tbody></tbody>
             </table>
         </form>
@@ -155,7 +156,7 @@
     $(document).ready(function () {
         let leaveType, date, remarks, addCount, el, cl, coff, total;
         console.log(localStorage.getItem('el'))
-        if (localStorage.getItem('el') && localStorage.getItem('cl')) {
+        if (localStorage.getItem('el') && localStorage.getItem('cl') || localStorage.getItem('coff')) {
             el = localStorage.getItem('el');
             cl = localStorage.getItem('cl');
             coff = localStorage.getItem('coff');
@@ -184,6 +185,13 @@
         else {
             addCount = 0;
         }
+        $(document).on('click', '.addCoff', function () {
+            coff = parseInt(coff) + 1;
+            $('#rcoff').html(coff);
+            total = parseFloat(cl) + parseFloat(el) + parseFloat(coff);
+            localStorage.setItem('coff', coff);
+            $('#total').html(total)
+        });
         $(document).on('click', '.addLeave', function () {
             $('.datetype_selector input').each(function () {
                 if ($(this).is(':checked')) {
@@ -191,8 +199,19 @@
                 }
             })
             date = $('.date').val();
+            for (i = 0; i < addCount; ++i) {
+                if (localStorage.getItem(`Leave Date${i}`) == date) {
+                    alert('Leave on this date has been taken already');
+                    date = '';
+                    console.log('date', date)
+                    break;
+                }
+                else {
+                    date = $('.date').val();
+                }
+            }
             remarks = $('.remarks').val();
-            if (leaveType !== undefined && date !== '') {
+            if (leaveType !== undefined && date !== '' && date !== undefined) {
 
                 if (leaveType === 'CL' || leaveType === 'Half-CL') {
                     if (cl > 0) {
