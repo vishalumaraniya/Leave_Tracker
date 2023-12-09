@@ -98,6 +98,9 @@
                             for="hel">Half-EL</label></li>
                     <li><input type="radio" name="leaveType" id="coff" data-name="COFF"> <label for="coff">COFF</label>
                     </li>
+                    <li><input type="radio" name="leaveType" id="half-coff" data-name="Half-COFF"> <label
+                            for="half-coff">Half-COFF</label>
+                    </li>
                 </ul>
             </div>
             <div class="field-wrapper">
@@ -214,7 +217,7 @@
             if (leaveType !== undefined && date !== '' && date !== undefined) {
 
                 if (leaveType === 'CL' || leaveType === 'Half-CL') {
-                    if (cl > 0) {
+                    if (cl > 0.5) {
                         if (leaveType === 'CL') {
                             cl = cl - 1;
                         }
@@ -236,13 +239,35 @@
                     <td>${remarks}</td>
                     </tr>`);
                     }
+                    else if (cl === 0.5) {
+                        if (leaveType === 'CL') {
+                            alert('you have only Half CL remaining.')
+                        }
+                        else {
+                            cl = cl - 0.5;
+                            $('#rcl').html(cl)
+                            localStorage.setItem('cl', cl);
+                            localStorage.setItem(`Leave Date${addCount}`, date)
+                            localStorage.setItem(`Remarks${addCount}`, remarks)
+                            localStorage.setItem(`Leave Type${addCount}`, leaveType)
+                            addCount = parseInt(addCount) + 1;
+                            localStorage.setItem('addCount', addCount);
+                            $('.data_table tr:last').after(
+                                `<tr>
+                    <td>${addCount}</td>
+                    <td>${date}</td>
+                    <td>${leaveType}</td>
+                    <td>${remarks}</td>
+                    </tr>`);
+                        }
+                    }
                     else {
                         alert('You are running out of CL, Please choose another Leave Type');
                     }
 
                 }
                 else if (leaveType === 'EL' || leaveType === 'Half-EL') {
-                    if (el > 0) {
+                    if (el > 0.5) {
                         if (leaveType === 'EL') {
                             el = el - 1;
                         }
@@ -263,13 +288,40 @@
                     <td>${leaveType}</td>
                     <td>${remarks}</td>
                     </tr>`);
-                    } else {
+                    }
+                    else if (el === 0.5) {
+                        if (leaveType === 'EL') {
+                            alert('you have only Half EL remaining.')
+                        }
+                        else {
+                            localStorage.setItem('el', el);
+                            localStorage.setItem(`Leave Date${addCount}`, date)
+                            localStorage.setItem(`Remarks${addCount}`, remarks)
+                            localStorage.setItem(`Leave Type${addCount}`, leaveType)
+                            addCount = parseInt(addCount) + 1;
+                            localStorage.setItem('addCount', addCount);
+                            $('#rel').html(el)
+                            $('.data_table tr:last').after(
+                                `<tr>
+                    <td>${addCount}</td>
+                    <td>${date}</td>
+                    <td>${leaveType}</td>
+                    <td>${remarks}</td>
+                    </tr>`);
+                        }
+                    }
+                    else {
                         alert('You are running out of EL, Please choose another Leave Type');
                     }
                 }
-                else if (leaveType === 'COFF') {
-                    if (coff > 0) {
-                        coff = coff - 1;
+                else if (leaveType === 'COFF' || leaveType === 'Half-COFF') {
+                    if (coff > 0.5) {
+                        if (leaveType === 'COFF') {
+                            coff = coff - 1;
+                        }
+                        else {
+                            coff = coff - 0.5;
+                        }
                         localStorage.setItem('coff', coff);
                         localStorage.setItem(`Leave Date${addCount}`, date)
                         localStorage.setItem(`Remarks${addCount}`, remarks)
@@ -284,6 +336,28 @@
                     <td>${leaveType}</td>
                     <td>${remarks}</td>
                     </tr>`);
+                    }
+                    else if (coff === 0.5) {
+                        if (leaveType === 'COFF') {
+                            alert('you have only Half C-OFF remaining.')
+                        }
+                        else {
+                            coff = coff - 0.5;
+                            localStorage.setItem('coff', coff);
+                            localStorage.setItem(`Leave Date${addCount}`, date)
+                            localStorage.setItem(`Remarks${addCount}`, remarks)
+                            localStorage.setItem(`Leave Type${addCount}`, leaveType)
+                            addCount = parseInt(addCount) + 1;
+                            localStorage.setItem('addCount', addCount);
+                            $('#rcoff').html(coff);
+                            $('.data_table tr:last').after(
+                                `<tr>
+                    <td>${addCount}</td>
+                    <td>${date}</td>
+                    <td>${leaveType}</td>
+                    <td>${remarks}</td>
+                    </tr>`);
+                        }
                     }
                     else {
                         alert('You are running out of C-OFF, Please choose another Leave Type');
