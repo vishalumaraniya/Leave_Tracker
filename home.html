@@ -191,7 +191,8 @@
         $(document).on('click', '.addCoff', function () {
             coff = localStorage.getItem('coff');
             console.log(coff)
-            coff = parseInt(coff) + 1;
+            coff = parseFloat(coff) + 1;
+            console.log('coff', coff)
             $('#rcoff').html(coff);
             total = parseFloat(cl) + parseFloat(el) + parseFloat(coff);
             localStorage.setItem('coff', coff);
