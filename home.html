@@ -189,6 +189,8 @@
             addCount = 0;
         }
         $(document).on('click', '.addCoff', function () {
+            coff = localStorage.getItem('coff');
+            console.log(coff)
             coff = parseInt(coff) + 1;
             $('#rcoff').html(coff);
             total = parseFloat(cl) + parseFloat(el) + parseFloat(coff);
@@ -239,7 +241,7 @@
                     <td>${remarks}</td>
                     </tr>`);
                     }
-                    else if (cl === 0.5) {
+                    else if (cl == 0.5) {
                         if (leaveType === 'CL') {
                             alert('you have only Half CL remaining.')
                         }
@@ -289,7 +291,7 @@
                     <td>${remarks}</td>
                     </tr>`);
                     }
-                    else if (el === 0.5) {
+                    else if (el == 0.5) {
                         if (leaveType === 'EL') {
                             alert('you have only Half EL remaining.')
                         }
@@ -337,7 +339,7 @@
                     <td>${remarks}</td>
                     </tr>`);
                     }
-                    else if (coff === 0.5) {
+                    else if (coff == 0.5) {
                         if (leaveType === 'COFF') {
                             alert('you have only Half C-OFF remaining.')
                         }
