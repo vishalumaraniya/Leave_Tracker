@@ -189,14 +189,20 @@
             addCount = 0;
         }
         $(document).on('click', '.addCoff', function () {
-            coff = localStorage.getItem('coff');
-            console.log(coff)
-            coff = parseFloat(coff) + 1;
-            console.log('coff', coff)
-            $('#rcoff').html(coff);
-            total = parseFloat(cl) + parseFloat(el) + parseFloat(coff);
-            localStorage.setItem('coff', coff);
-            $('#total').html(total)
+
+            var coff_username = prompt('Enter Username');
+            var coff_pass = prompt('Enter Password');
+            if (coff_username === localStorage.getItem(`userName`) && coff_pass === localStorage.getItem(`password`)) {
+                coff = localStorage.getItem('coff');
+                coff = parseFloat(coff) + 1;
+                $('#rcoff').html(coff);
+                total = parseFloat(cl) + parseFloat(el) + parseFloat(coff);
+                localStorage.setItem('coff', coff);
+                $('#total').html(total)
+            }
+            else {
+                alert('Invalid Username or Password');
+            }
         });
         $(document).on('click', '.addLeave', function () {
             $('.datetype_selector input').each(function () {
@@ -240,6 +246,7 @@
                     <td>${date}</td>
                     <td>${leaveType}</td>
                     <td>${remarks}</td>
+                    <td><a href='javascript:void(0)'class='delete'>Delete</a></td>
                     </tr>`);
                     }
                     else if (cl == 0.5) {
@@ -261,6 +268,7 @@
                     <td>${date}</td>
                     <td>${leaveType}</td>
                     <td>${remarks}</td>
+                    <td><a href='javascript:void(0)'class='delete'>Delete</a></td>
                     </tr>`);
                         }
                     }
@@ -290,6 +298,7 @@
                     <td>${date}</td>
                     <td>${leaveType}</td>
                     <td>${remarks}</td>
+                    <td><a href='javascript:void(0)'class='delete'>Delete</a></td>
                     </tr>`);
                     }
                     else if (el == 0.5) {
@@ -310,6 +319,7 @@
                     <td>${date}</td>
                     <td>${leaveType}</td>
                     <td>${remarks}</td>
+                    <td><a href='javascript:void(0)'class='delete'>Delete</a></td>
                     </tr>`);
                         }
                     }
@@ -338,6 +348,7 @@
                     <td>${date}</td>
                     <td>${leaveType}</td>
                     <td>${remarks}</td>
+                    <td><a href='javascript:void(0)'class='delete'>Delete</a></td>
                     </tr>`);
                     }
                     else if (coff == 0.5) {
@@ -359,6 +370,7 @@
                     <td>${date}</td>
                     <td>${leaveType}</td>
                     <td>${remarks}</td>
+                    <td><a href='javascript:void(0)'class='delete'>Delete</a></td>
                     </tr>`);
                         }
                     }
@@ -382,6 +394,7 @@
                     <td>${localStorage.getItem(`Leave Date${i}`)}</td>
                     <td>${localStorage.getItem(`Leave Type${i}`)}</td>
                     <td>${localStorage.getItem(`Remarks${i}`)}</td>
+                    <td><a href='javascript:void(0)'class='delete'>Delete</a></td>
                     </tr>`);
         }
 
@@ -405,7 +418,9 @@
             // Save the workbook as an Excel file
             XLSX.writeFile(wb, 'exported_data.xlsx');
         });
-
+        $(document).on('click', '.delete', function () {
+            console.log($(this).parent().parent().html())
+        })
     });
     $(window).on('load', function () {
         let userId = sessionStorage.getItem('userName')
