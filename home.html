@@ -80,6 +80,10 @@
             max-height: 50vh;
             overflow: auto;
         }
+
+        circle {
+            transition-duration: all 0.4s;
+        }
     </style>
 </head>
 
@@ -153,11 +157,14 @@
         </form>
         <button class="logout">Logout</button>
         <button id="export-btn">Export to Excel</button>
+        <div class="progressbar">
+
+        </div>
     </main>
 </body>
 <script>
     $(document).ready(function () {
-        let leaveType, date, remarks, addCount, el, cl, coff, total;
+        let leaveType, date, remarks, addCount, el, cl, coff, total, progress_val, total_progress;
         console.log(localStorage.getItem('el'))
         if (localStorage.getItem('el') && localStorage.getItem('cl') || localStorage.getItem('coff')) {
             el = localStorage.getItem('el');
@@ -384,7 +391,8 @@
                 alert('Date and LeaveType are mendatory');
             }
             total = parseFloat(cl) + parseFloat(el) + parseFloat(coff);
-            $('#total').html(total)
+            $('#total').html(total);
+            progress();
         });
 
         for (i = 0; i < addCount; ++i) {
@@ -419,8 +427,23 @@
             XLSX.writeFile(wb, 'exported_data.xlsx');
         });
         $(document).on('click', '.delete', function () {
-            console.log($(this).parent().parent().html())
+            let del_leave_num = $(this).parent().parent().children('td:nth-child(1)').html() - 1;
+            addCount = addCount - 1;
+            localStorage.setItem('addCount', addCount);
         })
+        function progress() {
+            total_progress = (439.6 / 12);
+            progress_val = 439.6 - total_progress * cl;
+            $('.progressbar').html(
+                ` <svg width="160" height="160" viewBox="0 0 160 160" style="transform: rotate(-90deg)">
+                <circle r="70" cx="80" cy="80" fill="transparent" stroke="#e0e0e0" stroke-width="12px"></circle>
+                <circle class="progress" r="70" cx="80" cy="80" fill="transparent" stroke="#60e6a8" stroke-width="12px"
+                    stroke-dasharray="439.6px" stroke-dashoffset="${progress_val + 'px'}" stroke-linecap="round"></circle>
+            </svg>
+                `
+            )
+        }
+        progress();
     });
     $(window).on('load', function () {
         let userId = sessionStorage.getItem('userName')
