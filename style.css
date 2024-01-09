@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+*           { margin: 0; padding: 0; box-sizing: border-box; }
+img         { max-width: 100%; }
+
+
+.dashboard                  { min-height: 100vh; display: flex; }
+.dashboard .left-block      {  width: 50%; background: rgb(11, 127, 180); }
+/* background: rgb(159 130 66); */
+.welcome-txt                { padding-block: 0.5rem; background: url('./images/banner-10.jpg') no-repeat center/cover;  display: flex; justify-content: center; min-height: 230px; }
+.wc-txt                     { position: relative; }
+.wc-txt h1                  { color: white; font-size: 32px; line-height: 40px; position: absolute; left: 50%; top: 50%;  transform: translate(-50%, -50%); text-align: center; font-family: 'Righteous', sans-serif;  }
+.dashboard .right-block     { flex-grow: 1; }
+
+.leave-details { min-height: 410px; padding: 1rem; background: rgb(11, 127, 180); position: relative; z-index: 5; overflow: hidden;}
+.leave-details .tab-content { padding-top: 1rem; }
+.leave-details ul { gap: 10px; }
+.leave-details ul li button { color: white ; font-size: 16px; line-height: 24px; }
+.leave-details ul li button:hover { color: white; }
+
+.leave-wrapper                      { row-gap: 16px; }
+.leave-card                         { max-width: 150px; }
+.leave-card .leave-card-img         { position: relative; }
+.leave-card .leave-card-img label   { position: absolute; left: 0; top: 0; width: 100%; height: 100%; cursor: pointer; z-index: 2; }
+.leave-content                      { display: flex; flex-direction: column; gap: 3px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-75%); }
+.leave-content h6                   { margin: 0; font-size: 15px; line-height: 23px; color: black; font-family: 'Lilita One', sans-serif; }
+.left-block {
+    position: relative;
+}
+.common-btn                         {  padding: 6px 12px; min-width: 120px; font-size: 18px; line-height: 26px; text-align: center; background: rgb(11, 127, 180); color: white; font-family: 'Lilita One', sans-serif; border: 0; z-index: 3;  transition: all 0.4s; }
+.common-btn.addLeave                { position: absolute; bottom: 20px; right: 0; }
+.common-btn.addLeave.show           { transform: translateX(100%); }
+.common-btn.addcof                  { background-image: linear-gradient(to right, #0000001a 0%, #d7dde89d  51%, #0000001a  100%); 
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;         
+    border-radius: 10px;
+    display: block;
+}
+.common-btn.addcof:hover { 
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+ }
+ 
+
+/* date card design  */
+.date-block { margin-top: 16px; width: fit-content; margin-inline: auto; display: flex; justify-content: center; position: relative; }
+ 
+
+.date-block::after {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 115%;
+    height: 9999px;
+    content: "";
+    background: rgba(0, 0, 0, 0.1);
+    pointer-events: none;
+    z-index: -1;
+    transform-origin: top right;
+    transform: skew(16deg) rotate(-17.5deg);
+}
+
+
+.date-card  { min-width: 115px; display: flex; flex-direction: column; height: 100%; }
+.date-card.blue  { background: #5dade2; }
+.date-card.blue .date-card-header { background: #3498db; } 
+.date-card.yellow  { background: #f6b517; }
+.date-card.yellow .date-card-header { background: #f39c12; }  
+.date-card.pink  { background: #ec7063; }
+.date-card.pink .date-card-header { background: #e74c3c; }
+.date-card.brown  { background: rgba(159, 130, 66, 0.788); }
+.date-card.brown .date-card-header { background: rgb(159 130 66); }   
+.date-card-content { padding: 20px 8px; text-align: center; }
+.date-card-header p { margin: 0; padding-block: 2px; font-size: 12px; line-height: 20px; font-weight: 500;  font-family: 'Righteous', sans-serif; text-align: center; color: white; }
+.date-card-content h2 { font-size: 38px; line-height: 46px; font-family: 'Lilita One', sans-serif; color: white; }
+
+.leave-count-header                     { overflow: hidden; padding-block: 22px; min-height: 230px; }
+.leave-count-header .date-block::after  { display: none; }
+.leave-count-header .date-block         { margin-top: 0; gap: 12px; }
+.leave-count-header .date-card-header p { font-size: 16px; line-height: 24px; }
+
+/* .right-block    { padding-inline: 20px; } */
+.leave-table                            { padding: 22px 18px; padding-top: 0;  background: black; max-height: 300px; overflow: auto; }
+.leave-table table                      { text-align: center; width: 100%; color: white; }
+.leave-table table td,
+.leave-table table th                   { border: 2px solid white; }
+.leave-table tbody tr:first-child       { position: sticky; top: 0; left: 0; background: black; }
+.leave-table tbody tr:first-child td    { padding-block: 12px; border-top: 0; }
+.leave-table tbody tr:last-child td     { border-bottom: 0; }
+.leave-table tr td:first-child          { border-left: 0; }
+.leave-table tr td:last-child           { border-right: 0; }

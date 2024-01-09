@@ -5,91 +5,241 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home1</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"  >
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        main {
-            display: flex;
-            flex-direction: column;
-            row-gap: 1rem;
-        }
-
-        ul {
-            display: flex;
-            gap: 1rem;
-            list-style: none;
-        }
-
-        button {
-            width: fit-content;
-        }
-
-        li>* {
-            cursor: pointer;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            row-gap: 1rem;
-        }
-
-        .field-wrapper {
-            display: flex;
-            gap: 1rem;
-        }
-
-        table {
-            max-width: 700px;
-        }
-
-        th,
-        td {
-            border: 1px solid black;
-            border-collapse: collapse;
-            background-color: rgba(255, 255, 255, 0.541);
-        }
-
-        body {
-
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            background: rgba(101, 117, 30, 0.623);
-        }
-
-
-        form {
-            padding: 2.5rem;
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            position: relative;
-            z-index: 1;
-            max-height: 50vh;
-            overflow: auto;
-        }
-    </style>
+   
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
-    <main>
-        <h1></h1>
+    <div class="dashboard">
+        <div class="left-block">
+            <div class="welcome-txt">
+                <div class="wc-txt">
+                    <h1 id="wctxt"></h1>
+                    <!-- <img src="./images/welcome-txt.png" alt=""> -->
+                </div>
+            </div>
+            <div class="leave-details">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Select Leave Type</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="select-date" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Select Date</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Add Remarks (optional)</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="cof-tab" data-bs-toggle="tab" data-bs-target="#coftrack" type="button" role="tab" aria-controls="coftrack" aria-selected="false">Track COF</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="leave-wrapper datetype_selector row">
+                        <div class="col-lg-4">
+                            <div class="leave-card">
+                                <div class="leave-card-img">
+                                    <label for="cl"></label>
+                                    <div class="leave-content">
+                                        <h6>CL</h6>
+                                        <input type="radio"   name="leaveType" id="cl" data-name="CL">
+                                    </div>
+                                    <img src="./images/leave-card-img.png" alt="image">
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="col-lg-4">
+                            <div class="leave-card">
+                                <div class="leave-card-img"> 
+                                    <label for="el"></label>
+                                    <div class="leave-content">
+                                        <h6>EL</h6>
+                                        <input type="radio" name="leaveType" id="el" data-name="EL"> 
+                                    </div>
+                                    <img src="./images/leave-card-img.png" alt="image">
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="col-lg-4">
+                            <div class="leave-card">
+                                <div class="leave-card-img"> 
+                                    <label for="hcl"></label>
+                                    <div class="leave-content">
+                                        <h6>Half-CL</h6>
+                                        <input type="radio" name="leaveType" id="hcl" data-name="Half-CL">
+                                    </div>
+                                    <img src="./images/leave-card-img.png" alt="image">
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="col-lg-4">
+                            <div class="leave-card">
+                                <div class="leave-card-img"> 
+                                    <label for="hel"></label>
+                                    <div class="leave-content">
+                                        <h6>Half-EL</h6>
+                                        <input type="radio" name="leaveType" id="hel" data-name="Half-EL">
+                                    </div>
+                                    <img src="./images/leave-card-img.png" alt="image">
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="col-lg-4">
+                            <div class="leave-card">
+                                <div class="leave-card-img"> 
+                                    <label for="coff"></label>
+                                    <div class="leave-content">
+                                        <h6>COFF</h6>
+                                        <input type="radio" name="leaveType" id="coff" data-name="COFF">
+                                    </div>
+                                    <img src="./images/leave-card-img.png" alt="image">
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="col-lg-4">
+                            <div class="leave-card">
+                                <div class="leave-card-img"> 
+                                    <label for="half-coff"></label>
+                                    <div class="leave-content">
+                                        <h6>Half-COFF</h6>
+                                        <input type="radio" name="leaveType" id="half-coff" data-name="Half-COFF">
+                                    </div>
+                                    <img src="./images/leave-card-img.png" alt="image">
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div> 
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="calender">
+                        <input class='date form-control' type="date" name="" id="" min="2024-01-01" max="2024-12-31">
+                    </div>  
+                        <div class="date-block">
+                            <div class="date-card blue">
+                                <div class="date-card-header">
+                                    <p>DATE</p>
+                                </div>
+                                <div class="date-card-content">
+                                    <h2 id="dd">00</h2>
+                                </div>
+                            </div>
+                            <div class="date-card yellow">
+                                <div class="date-card-header">
+                                    <p>MONTH</p>
+                                </div>
+                                <div class="date-card-content">
+                                    <h2 id="dm">00</h2>
+                                </div>
+                            </div>
+                            <div class="date-card pink">
+                                <div class="date-card-header">
+                                    <p>YEAR</p>
+                                </div>
+                                <div class="date-card-content">
+                                    <h2 id="dy">00</h2>
+                                </div>
+                            </div>
+                        </div> 
+                </div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <input class="remarks form-control" type="text" placeholder="Add your remarks" >
+                </div>
+                <div class="tab-pane fade" id="coftrack" role="tabpanel" aria-labelledby="cof-tab">
+                    <div class="coff_wrapper">
+                        <div class="row gy-2 mb-2">
+                            <div class="col-md-6">
+                                <input type="date" name="" id="coff_date" class="form-control" placeholder="Enter Date for C-OFF">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" id="coff_reason" class="form-control" placeholder="Why you adding this C-OFF">
+                            </div>
+                        </div>
+                        <div class="coff_length_wrapper">
+                            <!-- <label for="full">Full</label>
+                            <input type="radio" id="full" name="coff_length" data-length="1"> -->
+                            <!-- <label for="half">Half</label>
+                            <input type="radio" id="half" name="coff_length" data-length="0.5"> -->
+                        </div>
+                    </div>
+                    <button type="button" class="common-btn addcof addCoff mb-4">Add COF</button>
+                    <div class="leave-table">
+                        <table class="coff_table">
+                            <tr>
+                                <td>S.No.</td>
+                                <td>C-OFF Date</td>
+                                <td>C-OFF Reason</td>
+                                <!-- <td>C-OFF Remaining</td> -->
+                            </tr>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <button type="button" class="addLeave common-btn">Add Leave</button>
+        </div>
+        <div class="right-block">
+            <div class="leave-count-header">
+                <div class="date-block">
+                    <div class="date-card blue">
+                        <div class="date-card-header">
+                            <p>CL</p>
+                        </div>
+                        <div class="date-card-content">
+                            <h2 id="rcl">00</h2>
+                        </div>
+                    </div>
+                    <div class="date-card yellow">
+                        <div class="date-card-header">
+                            <p>EL</p>
+                        </div>
+                        <div class="date-card-content">
+                            <h2 id="rel">00</h2>
+                        </div>
+                    </div>
+                    <div class="date-card pink">
+                        <div class="date-card-header">
+                            <p>C-OFF</p>
+                        </div>
+                        <div class="date-card-content">
+                            <h2 id="rcoff">00</h2>
+                        </div>
+                    </div>
+                    <div class="date-card brown">
+                        <div class="date-card-header">
+                            <p>TOTAL</p>
+                        </div>
+                        <div class="date-card-content">
+                            <h2 id="total">00</h2>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+
+            <div class="leave-table">
+                <table class="data_table">
+                    <tr>
+                        <td>S.No.</td>
+                        <td>Leave Date</td>
+                        <td>Leave Type</td>
+                        <td>Remarks</td>
+                    </tr>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <main class="d-none">
+        
         <form action="">
             <div class="field-wrapper">
                 <h4>Choose Leave-Type :</h4>
-                <ul class="datetype_selector">
+                <!-- <ul class="datetype_selector">
                     <li><input type="radio" name="leaveType" id="cl" data-name="CL"> <label for="cl">CL</label></li>
                     <li><input type="radio" name="leaveType" id="el" data-name="EL"> <label for="el">EL</label></li>
                     <li><input type="radio" name="leaveType" id="hcl" data-name="Half-CL"> <label
@@ -98,22 +248,21 @@
                             for="hel">Half-EL</label></li>
                     <li><input type="radio" name="leaveType" id="coff" data-name="COFF"> <label for="coff">COFF</label>
                     </li>
-                    <li><input type="radio" name="leaveType" id="half-coff" data-name="Half-COFF"> <label
-                            for="half-coff">Half-COFF</label>
+                    <li><input type="radio" name="leaveType" id="half-coff" data-name="Half-COFF"> <label for="half-coff">Half-COFF</label>
                     </li>
-                </ul>
+                </ul> -->
             </div>
-            <div class="field-wrapper">
+            <!-- <div class="field-wrapper">
                 <h4>Choose Date :</h4>
                 <div class="calender">
                     <input class='date' type="date" name="" id="" min="2024-01-01" max="2024-12-31">
                 </div>
-            </div>
-            <div class="field-wrapper">
+            </div> -->
+            <!-- <div class="field-wrapper">
                 <h4>Remarks :</h4>
                 <input class="remarks" type="text">
-            </div>
-            <button type="button" class="addLeave">Add Leave</button>
+            </div> -->
+            <!-- <button type="button" class="addLeave">Add Leave</button> -->
             <button type="button" class="addCoff">Add C-OFF</button>
             <table class="remaining_leave">
                 <thead>
@@ -141,7 +290,7 @@
                     </tr>
                 </tbody>
             </table>
-            <table class="data_table">
+            <!-- <table class="data_table">
                 <tr>
                     <td>S.No.</td>
                     <td>Leave Date</td>
@@ -149,13 +298,397 @@
                     <td>Remarks</td>
                 </tr>
                 <tbody></tbody>
-            </table>
+            </table> -->
         </form>
         <button class="logout">Logout</button>
         <button id="export-btn">Export to Excel</button>
     </main>
-</body>
+</body> 
+
 <script>
+ 
+    $(document).ready(function () {
+        let leaveType, date, remarks, addCount, el, cl, coff, total, progress_val, total_progress, set_coff = 1, coff_length;
+        console.log(localStorage.getItem('el'))
+        if (localStorage.getItem('el') && localStorage.getItem('cl') || localStorage.getItem('coff')) {
+            el = localStorage.getItem('el');
+            cl = localStorage.getItem('cl');
+            coff = localStorage.getItem('coff');
+            $('#rcl').html(cl);
+            $('#rel').html(el);
+            $('#rcoff').html(coff);
+            total = parseFloat(cl) + parseFloat(el) + parseFloat(coff);
+            $('#total').html(total)
+        }
+        else {
+            el = 20;
+            cl = 12;
+            coff = 0;
+            localStorage.setItem('el', el);
+            localStorage.setItem('cl', cl);
+            localStorage.setItem('coff', coff);
+            $('#rcl').html(cl);
+            $('#rel').html(el);
+            $('#rcoff').html(coff);
+            total = parseFloat(cl) + parseFloat(el) + parseFloat(coff);
+            $('#total').html(total)
+        }
+        if (localStorage.getItem('addCount')) {
+            addCount = localStorage.getItem('addCount');
+        }
+        else {
+            addCount = 0;
+        }
+        $(document).on('click', '.addCoff', function () {
+            confirm_date = $('#coff_date').val();
+
+            var coff_username = prompt('Enter Username');
+            var coff_pass = prompt('Enter Password');
+            var coff_reason = $('#coff_reason').val();
+            var coff_date = $('#coff_date').val();
+            $('.coff_length_wrapper input').each(function () {
+                if ($(this).is(':checked')) {
+                    coff_length = $(this).attr('data-length');
+                    console.log(coff_length);
+                }
+            })
+            if (coff_username === localStorage.getItem(`userName`) && coff_pass === localStorage.getItem(`password`)) {
+                if (coff_reason && coff_date) {
+                    // coff = localStorage.getItem('coff');
+                    coff = parseFloat(coff) + 1;
+                    $('#rcoff').html(coff);
+                    total = parseFloat(cl) + parseFloat(el) + parseFloat(coff);
+                    localStorage.setItem('coff', coff);
+                    localStorage.setItem(`c-off_date${coff}`, coff_date);
+                    localStorage.setItem(`c-off_reason${coff}`, coff_reason);
+                    // localStorage.setItem(`c-off_length${coff}`, coff_length);
+                    $('#total').html(total);
+
+                    $('.coff_table tr:last').after(
+                        `<tr>
+                    <td>${coff}</td>
+                    <td>${localStorage.getItem(`c-off_date${coff}`)}</td>
+                    <td>${localStorage.getItem(`c-off_reason${coff}`)}</td>
+                    </tr>`);
+
+                }
+                else {
+                    alert('Please fill all the details for C-OFF');
+                }
+            }
+            else {
+                alert('Invalid Username or Password');
+            }
+        });
+        $(document).on('click', '.addLeave', function () {
+            $('.datetype_selector input').each(function () {
+                if ($(this).is(':checked')) {
+                    leaveType = $(this).attr('data-name');
+                }
+            })
+            date = $('.date').val();
+            for (i = 0; i < addCount; ++i) {
+                if (localStorage.getItem(`Leave Date${i}`) == date) {
+                    alert('Leave on this date has been taken already');
+                    date = '';
+                    console.log('date', date)
+                    break;
+                }
+                else {
+                    date = $('.date').val();
+                }
+            }
+            remarks = $('.remarks').val();
+            if (leaveType !== undefined && date !== '' && date !== undefined) {
+
+                if (leaveType === 'CL' || leaveType === 'Half-CL') {
+                    if (cl > 0.5) {
+                        if (leaveType === 'CL') {
+                            cl = cl - 1;
+                        }
+                        else {
+                            cl = cl - 0.5;
+                        }
+                        $('#rcl').html(cl)
+                        localStorage.setItem('cl', cl);
+                        localStorage.setItem(`Leave Date${addCount}`, date)
+                        localStorage.setItem(`Remarks${addCount}`, remarks)
+                        localStorage.setItem(`Leave Type${addCount}`, leaveType)
+                        addCount = parseInt(addCount) + 1;
+                        localStorage.setItem('addCount', addCount);
+                        $('.data_table tr:last').after(
+                            `<tr>
+                    <td>${addCount}</td>
+                    <td>${date}</td>
+                    <td>${leaveType}</td>
+                    <td>${remarks}</td>
+                    </tr>`);
+                    }
+                    else if (cl == 0.5) {
+                        if (leaveType === 'CL') {
+                            alert('you have only Half CL remaining.')
+                        }
+                        else {
+                            cl = cl - 0.5;
+                            $('#rcl').html(cl)
+                            localStorage.setItem('cl', cl);
+                            localStorage.setItem(`Leave Date${addCount}`, date)
+                            localStorage.setItem(`Remarks${addCount}`, remarks)
+                            localStorage.setItem(`Leave Type${addCount}`, leaveType)
+                            addCount = parseInt(addCount) + 1;
+                            localStorage.setItem('addCount', addCount);
+                            $('.data_table tr:last').after(
+                                `<tr>
+                    <td>${addCount}</td>
+                    <td>${date}</td>
+                    <td>${leaveType}</td>
+                    <td>${remarks}</td>
+                    </tr>`);
+                        }
+                    }
+                    else {
+                        alert('You are running out of CL, Please choose another Leave Type');
+                    }
+
+                }
+                else if (leaveType === 'EL' || leaveType === 'Half-EL') {
+                    if (el > 0.5) {
+                        if (leaveType === 'EL') {
+                            el = el - 1;
+                        }
+                        else {
+                            el = el - 0.5;
+                        }
+                        localStorage.setItem('el', el);
+                        localStorage.setItem(`Leave Date${addCount}`, date)
+                        localStorage.setItem(`Remarks${addCount}`, remarks)
+                        localStorage.setItem(`Leave Type${addCount}`, leaveType)
+                        addCount = parseInt(addCount) + 1;
+                        localStorage.setItem('addCount', addCount);
+                        $('#rel').html(el)
+                        $('.data_table tr:last').after(
+                            `<tr>
+                    <td>${addCount}</td>
+                    <td>${date}</td>
+                    <td>${leaveType}</td>
+                    <td>${remarks}</td>
+                    </tr>`);
+                    }
+                    else if (el == 0.5) {
+                        if (leaveType === 'EL') {
+                            alert('you have only Half EL remaining.')
+                        }
+                        else {
+                            el = el - 0.5;
+                            localStorage.setItem('el', el);
+                            localStorage.setItem(`Leave Date${addCount}`, date)
+                            localStorage.setItem(`Remarks${addCount}`, remarks)
+                            localStorage.setItem(`Leave Type${addCount}`, leaveType)
+                            addCount = parseInt(addCount) + 1;
+                            localStorage.setItem('addCount', addCount);
+                            $('#rel').html(el)
+                            $('.data_table tr:last').after(
+                                `<tr>
+                    <td>${addCount}</td>
+                    <td>${date}</td>
+                    <td>${leaveType}</td>
+                    <td>${remarks}</td>
+                    </tr>`);
+                        }
+                    }
+                    else {
+                        alert('You are running out of EL, Please choose another Leave Type');
+                    }
+                }
+                else if (leaveType === 'COFF' || leaveType === 'Half-COFF') {
+                    if (coff > 0.5) {
+                        if (leaveType === 'COFF') {
+                            coff = coff - 1;
+                        }
+                        else {
+                            coff = coff - 0.5;
+                        }
+                        localStorage.setItem('coff', coff);
+                        localStorage.setItem(`Leave Date${addCount}`, date)
+                        localStorage.setItem(`Remarks${addCount}`, remarks)
+                        localStorage.setItem(`Leave Type${addCount}`, leaveType)
+                        addCount = parseInt(addCount) + 1;
+                        localStorage.setItem('addCount', addCount);
+                        $('#rcoff').html(coff);
+                        $('.data_table tr:last').after(
+                            `<tr>
+                    <td>${addCount}</td>
+                    <td>${date}</td>
+                    <td>${leaveType}</td>
+                    <td>${remarks}</td>
+                    </tr>`);
+                    }
+                    else if (coff == 0.5) {
+                        if (leaveType === 'COFF') {
+                            alert('you have only Half C-OFF remaining.')
+                        }
+                        else {
+                            coff = coff - 0.5;
+                            localStorage.setItem('coff', coff);
+                            localStorage.setItem(`Leave Date${addCount}`, date)
+                            localStorage.setItem(`Remarks${addCount}`, remarks)
+                            localStorage.setItem(`Leave Type${addCount}`, leaveType)
+                            addCount = parseInt(addCount) + 1;
+                            localStorage.setItem('addCount', addCount);
+                            $('#rcoff').html(coff);
+                            $('.data_table tr:last').after(
+                                `<tr>
+                    <td>${addCount}</td>
+                    <td>${date}</td>
+                    <td>${leaveType}</td>
+                    <td>${remarks}</td>
+                    </tr>`);
+                        }
+
+                    }
+                    else {
+                        alert('You are running out of C-OFF, Please choose another Leave Type');
+                    }
+                }
+
+            }
+            else {
+                alert('Date and LeaveType are mendatory');
+            }
+            total = parseFloat(cl) + parseFloat(el) + parseFloat(coff);
+            $('#total').html(total);
+            progress();
+        });
+
+        for (i = 0; i < addCount; ++i) {
+            $('.data_table tr:last').after(
+                `<tr>
+                    <td>${i + 1}</td>
+                    <td>${localStorage.getItem(`Leave Date${i}`)}</td>
+                    <td>${localStorage.getItem(`Leave Type${i}`)}</td>
+                    <td>${localStorage.getItem(`Remarks${i}`)}</td>
+                    </tr>`);
+        }
+        for (i = 0; i < coff; ++i) {
+            $('.coff_table tr:last').after(
+                `<tr>
+                    <td>${i + 1}</td>
+                    <td>${localStorage.getItem(`c-off_date${i + 1}`)}</td>
+                    <td>${localStorage.getItem(`c-off_reason${i + 1}`)}</td>
+                    </tr>`);
+        }
+        // let coff_tracker = function () {
+        //     $('.coff_table tr td:last-child').each(function () {
+        //         let length = $(this).html();
+        //         if (length >= 0.5 && !($(this).parent().hasClass('finish'))) {
+        //             if (length == 1) {
+        //                 $(this).html(0.5);
+        //                 length = length - 0.5;
+        //             }
+        //             else if (length == 0.5) {
+        //                 $(this).parent().addClass('finish');
+        //                 $(this).html(0);
+        //             }
+        //             return false
+        //         }
+        //     })
+        // }
+        // coff_tracker();
+        $('#export-btn').on('click', function () {
+            // Get data from the table
+            var data = [];
+            $('.data_table tr').each(function () {
+                var rowData = [];
+                $(this).find('td').each(function () {
+                    rowData.push($(this).text());
+                });
+                data.push(rowData);
+            });
+
+            // Create a workbook and add a worksheet
+            var wb = XLSX.utils.book_new();
+            var ws = XLSX.utils.aoa_to_sheet(data);
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+            // Save the workbook as an Excel file
+            XLSX.writeFile(wb, 'exported_data.xlsx');
+        });
+
+
+         // for add leave button animation 
+        $(document).on('click','#select-date',function(){
+            $('.datetype_selector input').each(function () {
+                if ($(this).is(':checked')) {
+                    leaveType = $(this).attr('data-name');
+                }
+            })
+            if (leaveType == undefined){
+                alert('Please Select Leave Type for add leave'); 
+                $('#home-tab').click();
+            }
+        });
+        $('.date').on('change',function(){
+            $('.datetype_selector input').each(function () {
+                if ($(this).is(':checked')) {
+                    leaveType = $(this).attr('data-name');
+                }
+            }) 
+            date = $('.date').val(); 
+            var d = new Date( date ); 
+            console.log('year'+ d.getFullYear());
+            console.log('date'+ d.getDate());
+            console.log('month'+ d.getMonth());
+
+            $('#dd').html(d.getDate());
+            $('#dm').html(d.getMonth() + 1);
+            $('#dy').html(d.getFullYear());
+
+
+            console.log('checktype'+ leaveType);
+            console.log('checkdate'+ date);
+            if(leaveType  && date){
+                $('.addLeave').addClass('show');
+            }
+        }); 
+
+        function progress() {
+            total_progress = (439.6 / 12);
+            progress_val = 439.6 - total_progress * cl;
+            $('.progressbar').html(
+                ` <svg width="160" height="160" viewBox="0 0 160 160" style="transform: rotate(-90deg)">
+                <circle r="70" cx="80" cy="80" fill="transparent" stroke="#e0e0e0" stroke-width="12px"></circle>
+                <circle class="progress" r="70" cx="80" cy="80" fill="transparent" stroke="#60e6a8" stroke-width="12px"
+                    stroke-dasharray="439.6px" stroke-dashoffset="${progress_val + 'px'}" stroke-linecap="round"></circle>
+            </svg>
+                `
+            )
+        }
+        progress();
+    });
+    $(window).on('load', function () {
+        let userId = sessionStorage.getItem('userName')
+        let password = sessionStorage.getItem('password')
+        let regUserId = localStorage.getItem(`userName`)
+        let regPassword = localStorage.getItem(`password`)
+        if (userId && regUserId && password && regPassword) {
+            if (userId == regUserId && password == regPassword) {
+                $('h1').html(`Welcome ${userId}`);
+            }
+        }
+        else {
+            window.location.href = 'login.html'
+        }
+    })
+    $(document).on('click', '.logout', function () {
+        sessionStorage.setItem('userName', '')
+        sessionStorage.setItem('password', '')
+        location.reload();
+    }); 
+
+
+
+
+ /*
     $(document).ready(function () {
         let leaveType, date, remarks, addCount, el, cl, coff, total;
         console.log(localStorage.getItem('el'))
@@ -406,7 +939,44 @@
             XLSX.writeFile(wb, 'exported_data.xlsx');
         });
 
-    });
+        // for add leave button animation 
+        $(document).on('click','#select-date',function(){
+            $('.datetype_selector input').each(function () {
+                if ($(this).is(':checked')) {
+                    leaveType = $(this).attr('data-name');
+                }
+            })
+            if (leaveType == undefined){
+                alert('Please Select Leave Type for add leave'); 
+                $('#home-tab').click();
+            }
+        });
+        $('.date').on('change',function(){
+            $('.datetype_selector input').each(function () {
+                if ($(this).is(':checked')) {
+                    leaveType = $(this).attr('data-name');
+                }
+            }) 
+            date = $('.date').val(); 
+            var d = new Date( date ); 
+            console.log('year'+ d.getFullYear());
+            console.log('date'+ d.getDate());
+            console.log('month'+ d.getMonth());
+
+            $('#dd').html(d.getDate());
+            $('#dm').html(d.getMonth() + 1);
+            $('#dy').html(d.getFullYear());
+
+
+            console.log('checktype'+ leaveType);
+            console.log('checkdate'+ date);
+            if(leaveType  && date){
+                $('.addLeave').addClass('show');
+            }
+        });
+        }); 
+
+
     $(window).on('load', function () {
         let userId = sessionStorage.getItem('userName')
         let password = sessionStorage.getItem('password')
@@ -414,7 +984,7 @@
         let regPassword = localStorage.getItem(`password`)
         if (userId && regUserId && password && regPassword) {
             if (userId == regUserId && password == regPassword) {
-                $('h1').html(`welcome home ${userId}`);
+                $('#wctxt').html(`welcome <br> ${userId}`);
             }
         }
         else {
@@ -426,6 +996,10 @@
         sessionStorage.setItem('password', '')
         location.reload();
     });
+
+*/
+
+
 </script>
 
 </html>
