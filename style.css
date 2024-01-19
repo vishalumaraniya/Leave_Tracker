@@ -41,9 +41,8 @@ img         { max-width: 100%; }
     background-position: right center; /* change the direction of the change here */
     color: #fff;
     text-decoration: none;
- }
-.right-block .common-btn     { margin: 22px 12px 0 auto; } 
-
+ } 
+.right-block .btn-group { margin-top: 22px; padding-inline: 16px; gap: 12px; display: flex; align-items: center; justify-content: space-between; }  
 /* date card design  */
 .date-block { margin-top: 16px; width: fit-content; margin-inline: auto; display: flex; justify-content: center; position: relative; }
  
