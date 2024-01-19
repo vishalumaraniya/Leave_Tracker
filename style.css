@@ -42,7 +42,7 @@ img         { max-width: 100%; }
     color: #fff;
     text-decoration: none;
  }
-.right-block .common-btn     { margin-top: 22px; } 
+.right-block .common-btn     { margin: 22px 12px 0 auto; } 
 
 /* date card design  */
 .date-block { margin-top: 16px; width: fit-content; margin-inline: auto; display: flex; justify-content: center; position: relative; }
