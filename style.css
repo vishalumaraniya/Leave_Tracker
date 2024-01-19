@@ -28,8 +28,8 @@ img         { max-width: 100%; }
     position: relative;
 }
 .common-btn                         {  padding: 6px 12px; min-width: 120px; font-size: 18px; line-height: 26px; text-align: center; background: rgb(11, 127, 180); color: white; font-family: 'Lilita One', sans-serif; border: 0; z-index: 3;  transition: all 0.4s; }
-.common-btn.addLeave                { position: absolute; bottom: 20px; right: 0; }
-.common-btn.addLeave.show           { transform: translateX(100%); }
+.common-btn.addLeave                { position: absolute; bottom: 20px; right: 0; z-index: -1}
+.common-btn.addLeave.show           { transform: translateX(100%); z-index: 2}
 .common-btn.addcof                  { background-image: linear-gradient(to right, #0000001a 0%, #d7dde89d  51%, #0000001a  100%); 
     transition: 0.5s;
     background-size: 200% auto;
